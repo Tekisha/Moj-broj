@@ -376,7 +376,6 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
-/Kodovi/.vs/Moj broj/**/ipch/*
 
 # OpenCover UI analysis results
 OpenCover/
