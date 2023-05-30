@@ -113,19 +113,36 @@ bool ExprGenerator::newSolution(Expression& e)
 	return false;
 }
 
+//void ExprGenerator::buildOpComb()
+//{
+//	std::vector<int>::iterator itt;
+//	int i = 0;
+//	for (itt = operands.begin(); itt != operands.end(); ++itt) {
+//		Expression e = Expression(*itt, i);
+//		exp1.push_back(e);
+//		++i;
+//
+//		if (newSolution(e)) {
+//			return;
+//		}
+//	}
+//}
 void ExprGenerator::buildOpComb()
 {
-	std::vector<int>::iterator itt;
-	int i = 0;
-	for (itt = operands.begin(); itt != operands.end(); ++itt) {
-		Expression e = Expression(*itt, i);
-		exp1.push_back(e);
-		++i;
+	tbb::task_group_context ctx;
+	tbb::parallel_for(tbb::blocked_range<size_t>(0, operands.size()),
+		[&](const tbb::blocked_range<size_t>& range) {
+			for (size_t i = range.begin(); i != range.end(); ++i) {
+				Expression e = Expression(operands[i], static_cast<int>(i));
+				exp1.push_back(e);
 
-		if (newSolution(e)) {
-			return;
-		}
-	}
+				if (newSolution(e)) {
+					// Cancel the parallel execution if a solution is found
+					ctx.cancel_group_execution();
+				}
+			}
+		}, ctx
+	);
 }
 
 void ExprGenerator::buildComb(std::vector<Expression>& e1, std::vector<Expression>& e2, std::vector<Expression>& e)
@@ -232,5 +249,46 @@ void ExprGenerator::buildComb(std::vector<Expression>& e1, std::vector<Expressio
 
 
 		}
+	}
+
+
+}
+
+void ExprGenerator::generateExprParallel()
+{
+	sort(operands.begin(), operands.end());
+
+	buildOpComb();
+
+	tbb::task_group g;
+
+	g.run([&]() { buildCombParallel(exp1, exp1, exp2); });
+	g.run([&]() { buildCombParallel(exp2, exp1, exp3); });
+	g.run([&]() { buildCombParallel(exp3, exp1, exp4); });
+	g.run([&]() { buildCombParallel(exp2, exp2, exp4); });
+	g.run([&]() { buildCombParallel(exp4, exp1, exp5); });
+	g.run([&]() { buildCombParallel(exp3, exp2, exp5); });
+	g.run([&]() { buildCombParallel(exp5, exp1, exp6); });
+	g.run([&]() { buildCombParallel(exp4, exp2, exp6); });
+	g.run([&]() { buildCombParallel(exp3, exp3, exp6); });
+
+	g.wait();
+}
+
+void ExprGenerator::buildCombParallel(std::vector<Expression>& e1,std::vector<Expression>& e2, std::vector<Expression>& e)
+{
+	std::vector<std::vector<Expression>> localExp(e1.size());
+
+	tbb::parallel_for(tbb::blocked_range<int>(0, e1.size()),
+		[&](const tbb::blocked_range<int>& range) {
+			for (int i = range.begin(); i < range.end(); ++i) {
+				buildComb(e1, e2, localExp[i]);
+			}
+		}
+	);
+
+	// Combine localExp vectors into a single vector
+	for (const auto& localVec : localExp) {
+		e.insert(e.end(), localVec.begin(), localVec.end());
 	}
 }

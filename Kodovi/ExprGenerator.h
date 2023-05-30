@@ -2,6 +2,10 @@
 #include <iostream>
 #include <vector>
 #include "Expression.h"
+#include <tbb/parallel_for.h>
+#include <tbb/blocked_range.h>
+#include <tbb/task_group.h>
+#include <tbb/task.h.>
 
 class ExprGenerator {
 public:
@@ -27,11 +31,13 @@ public:
 	void reset(int newTarget, std::vector<int> numbers); // reset kad je nova runda
 	void clearLists(); //kad je nova runda svi vektori se ciste
 	void generateExpr(); //generise sve moguce izraze
+	void buildCombParallel(std::vector<Expression>& e1,std::vector<Expression>& e2, std::vector<Expression>& e);
 	bool notCommonId(Expression& e1, Expression& e2); //provjerava da li izrazi imaju isti element
 	std::string& printSolution(); //printa najbolje rjesenje
 
 	bool newSolution(Expression& e); //provjerava da li je dobijeni izraz novo najbolje rjesenje
 	void buildOpComb(); //pravi sve izraze sa jednim operandom
+	void generateExprParallel();
 	void buildComb(std::vector<Expression>& e1, std::vector<Expression>& e2, std::vector<Expression>& e); //pravi nove izraze sa e1+e2 operanada
 
 

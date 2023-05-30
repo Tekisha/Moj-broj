@@ -1,0 +1,13 @@
+﻿  ExprGenerator.cpp
+C:\Users\teodo\OneDrive\Desktop\mojbroj\Moj-broj\Kodovi\ExprGenerator.cpp(109,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\teodo\OneDrive\Desktop\mojbroj\Moj-broj\Kodovi\ExprGenerator.cpp(282,56): warning C4267: 'argument': conversion from 'size_t' to 'Value', possible loss of data
+          with
+          [
+              Value=int
+          ]
+  utils.cpp
+C:\Users\teodo\OneDrive\Desktop\mojbroj\Moj-broj\Kodovi\utils.cpp(165,9): warning C4101: 'valueOfExp': unreferenced local variable
+C:\Users\teodo\OneDrive\Desktop\mojbroj\Moj-broj\Kodovi\utils.cpp(163,6): warning C4101: 'minDifB': unreferenced local variable
+C:\Users\teodo\OneDrive\Desktop\mojbroj\Moj-broj\Kodovi\utils.cpp(164,6): warning C4101: 'minDifA': unreferenced local variable
+  Generating Code...
+  Moj broj.vcxproj -> C:\Users\teodo\OneDrive\Desktop\mojbroj\Moj-broj\Kodovi\x64\Debug\Moj broj.exe

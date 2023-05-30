@@ -202,228 +202,232 @@ void playGame()
 		generator.reset(target, numbers);
 
 		//unos izraza i racunanje
-		if ((i + 1) % 2 == 0) {
-			userExpr = "";
+		//if ((i + 1) % 2 == 0) {
+		//	userExpr = "";
 
-			while (!isValidExpression(userExpr)) {
-				std::cout << "Igrac B na potezu: " << std::endl;
-				std::cin >> userExpr;
-			}
-			output << "Igrac B: " << userExpr << std::endl;
-
-
-			userExpr = infix_to_postfix(userExpr, numbers);
-			if (userExpr == "") {
-				std::cout << "Mozete koristiti samo ponudjene brojeve. :(" << std::endl;
-				std::cout << "Igrac A je osvojio rundu." << std::endl;
-				output << "Igrac B nije koristio samo ponudjene brojeve. Igrac A osvojio rundu." << std::endl;
-				roundsA++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
+		//	while (!isValidExpression(userExpr)) {
+		//		std::cout << "Igrac B na potezu: " << std::endl;
+		//		std::cin >> userExpr;
+		//	}
+		//	output << "Igrac B: " << userExpr << std::endl;
 
 
-			valueOfExp = evaluateExpression<double>(userExpr);
-			if (ceil(valueOfExp) != floor(valueOfExp)) {
-				std::cout << "Rezultat mora biti cijeli broj. :(" << std::endl;
-				std::cout << "Igrac A je osvojio rundu." << std::endl;
-				output << "Igrac B nije imao cjelobrojno resenje. Igrac A osvojio rundu." << std::endl;
-				roundsA++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
-			std::cout << " = " << ceil(valueOfExp) << std::endl;
-			output << "Vrednost izraza: " << valueOfExp << std::endl;
+		//	userExpr = infix_to_postfix(userExpr, numbers);
+		//	if (userExpr == "") {
+		//		std::cout << "Mozete koristiti samo ponudjene brojeve. :(" << std::endl;
+		//		std::cout << "Igrac A je osvojio rundu." << std::endl;
+		//		output << "Igrac B nije koristio samo ponudjene brojeve. Igrac A osvojio rundu." << std::endl;
+		//		roundsA++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
 
-			minDifB = abs(target - valueOfExp);
 
-			if (minDifB == 0) {
-				std::cout << "Igrac B je nasao tacan broj. \n" << std::endl;
-				output << "Igrac B je nasao tacan broj. Osvojio je rundu." << std::endl;
-				roundsB++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
-			output << "Udaljenost: " << minDifB << std::endl << std::endl;
-			/////////////////////////////////////////////////
-			userExpr = "";
+		//	valueOfExp = evaluateExpression<double>(userExpr);
+		//	if (ceil(valueOfExp) != floor(valueOfExp)) {
+		//		std::cout << "Rezultat mora biti cijeli broj. :(" << std::endl;
+		//		std::cout << "Igrac A je osvojio rundu." << std::endl;
+		//		output << "Igrac B nije imao cjelobrojno resenje. Igrac A osvojio rundu." << std::endl;
+		//		roundsA++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
+		//	std::cout << " = " << ceil(valueOfExp) << std::endl;
+		//	output << "Vrednost izraza: " << valueOfExp << std::endl;
 
-			while (!isValidExpression(userExpr)) {
-				std::cout << "Igrac A na potezu: " << std::endl;
-				std::cin >> userExpr;
-			}
-			output << "Igrac A: " << userExpr << std::endl;
+		//	minDifB = abs(target - valueOfExp);
 
-			userExpr = infix_to_postfix(userExpr, numbers);
-			if (userExpr == "") {
-				std::cout << "Mozete koristiti samo ponudjene brojeve. :(" << std::endl;
-				std::cout << "Igrac B je osvojio rundu." << std::endl;
-				output << "Igrac A nije koristio samo ponudjene brojeve. Igrac B osvojio rundu." << std::endl;
-				roundsB++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
+		//	if (minDifB == 0) {
+		//		std::cout << "Igrac B je nasao tacan broj. \n" << std::endl;
+		//		output << "Igrac B je nasao tacan broj. Osvojio je rundu." << std::endl;
+		//		roundsB++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
+		//	output << "Udaljenost: " << minDifB << std::endl << std::endl;
+		//	/////////////////////////////////////////////////
+		//	userExpr = "";
 
-			valueOfExp = evaluateExpression<double>(userExpr);
-			if (ceil(valueOfExp) != floor(valueOfExp)) {
-				std::cout << "Rezultat mora biti cijeli broj. :(" << std::endl;
-				std::cout << "Igrac B je osvojio rundu." << std::endl;
-				output << "Igrac A nije imao cjelobrojno resenje. Igrac B osvojio rundu." << std::endl;
-				roundsB++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
-			std::cout << " = " << ceil(valueOfExp) << std::endl;
-			output << "Vrednost izraza: " << valueOfExp << std::endl;
+		//	while (!isValidExpression(userExpr)) {
+		//		std::cout << "Igrac A na potezu: " << std::endl;
+		//		std::cin >> userExpr;
+		//	}
+		//	output << "Igrac A: " << userExpr << std::endl;
 
-			minDifA = abs(target - valueOfExp);
-			output << "Udaljenost: " << minDifA << std::endl << std::endl;
+		//	userExpr = infix_to_postfix(userExpr, numbers);
+		//	if (userExpr == "") {
+		//		std::cout << "Mozete koristiti samo ponudjene brojeve. :(" << std::endl;
+		//		std::cout << "Igrac B je osvojio rundu." << std::endl;
+		//		output << "Igrac A nije koristio samo ponudjene brojeve. Igrac B osvojio rundu." << std::endl;
+		//		roundsB++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
 
-			if (minDifA == 0) {
-				std::cout << "Igrac A je nasao tacan broj. \n" << std::endl;
-				output << "Igrac A je nasao tacan broj. Osvojio je rundu." << std::endl;
-				roundsA++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
-			else if (minDifA < minDifB) {
-				std::cout << "Igrac A je osvojio rundu." << std::endl;
-				output << "Igrac A je osvojio rundu." << std::endl;
-				roundsA++;
-			}
-			else {
-				std::cout << "Igrac B je osvojio rundu." << std::endl;
-				output << "Igrac B je osvojio rundu" << std::endl;
-				roundsB++;
-			}
+		//	valueOfExp = evaluateExpression<double>(userExpr);
+		//	if (ceil(valueOfExp) != floor(valueOfExp)) {
+		//		std::cout << "Rezultat mora biti cijeli broj. :(" << std::endl;
+		//		std::cout << "Igrac B je osvojio rundu." << std::endl;
+		//		output << "Igrac A nije imao cjelobrojno resenje. Igrac B osvojio rundu." << std::endl;
+		//		roundsB++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
+		//	std::cout << " = " << ceil(valueOfExp) << std::endl;
+		//	output << "Vrednost izraza: " << valueOfExp << std::endl;
 
-		}
-		else {
-			userExpr = "";
+		//	minDifA = abs(target - valueOfExp);
+		//	output << "Udaljenost: " << minDifA << std::endl << std::endl;
 
-			while (!isValidExpression(userExpr)) {
-				std::cout << "Igrac A na potezu: " << std::endl;
-				std::cin >> userExpr;
-			}
-			output << "Igrac A: " << userExpr << std::endl;
+		//	if (minDifA == 0) {
+		//		std::cout << "Igrac A je nasao tacan broj. \n" << std::endl;
+		//		output << "Igrac A je nasao tacan broj. Osvojio je rundu." << std::endl;
+		//		roundsA++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
+		//	else if (minDifA < minDifB) {
+		//		std::cout << "Igrac A je osvojio rundu." << std::endl;
+		//		output << "Igrac A je osvojio rundu." << std::endl;
+		//		roundsA++;
+		//	}
+		//	else {
+		//		std::cout << "Igrac B je osvojio rundu." << std::endl;
+		//		output << "Igrac B je osvojio rundu" << std::endl;
+		//		roundsB++;
+		//	}
 
-			userExpr = infix_to_postfix(userExpr, numbers);
-			if (userExpr == "") {
-				std::cout << "Mozete koristiti samo ponudjene brojeve. :(" << std::endl;
-				std::cout << "Igrac B je osvojio rundu." << std::endl;
-				output << "Igrac A nije koristio samo ponudjene brojeve. Igrac B osvojio rundu." << std::endl;
-				roundsB++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
+		//}
+		//else {
+		//	userExpr = "";
 
-			valueOfExp = evaluateExpression<double>(userExpr);
-			if (ceil(valueOfExp) != floor(valueOfExp)) {
-				std::cout << "Rezultat mora biti cijeli broj. :(" << std::endl;
-				std::cout << "Igrac B je osvojio rundu." << std::endl;
-				output << "Igrac A nije imao cjelobrojno resenje. Igrac B osvojio rundu." << std::endl;
-				roundsB++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
-			std::cout << " = " << ceil(valueOfExp) << std::endl;
-			output << "Vrednost izraza: " << valueOfExp << std::endl;
+		//	while (!isValidExpression(userExpr)) {
+		//		std::cout << "Igrac A na potezu: " << std::endl;
+		//		std::cin >> userExpr;
+		//	}
+		//	output << "Igrac A: " << userExpr << std::endl;
 
-			minDifA = abs(target - valueOfExp);
-			output << "Udaljenost: " << minDifA << std::endl << std::endl;
+		//	userExpr = infix_to_postfix(userExpr, numbers);
+		//	if (userExpr == "") {
+		//		std::cout << "Mozete koristiti samo ponudjene brojeve. :(" << std::endl;
+		//		std::cout << "Igrac B je osvojio rundu." << std::endl;
+		//		output << "Igrac A nije koristio samo ponudjene brojeve. Igrac B osvojio rundu." << std::endl;
+		//		roundsB++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
 
-			if (minDifA == 0) {
-				std::cout << "Igrac A je nasao tacan broj. \n" << std::endl;
-				output << "Igrac A je nasao tacan broj. Osvojio je rundu." << std::endl;
-				roundsA++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
-			/////////////////////////////////////////////////
-			userExpr = "";
+		//	valueOfExp = evaluateExpression<double>(userExpr);
+		//	if (ceil(valueOfExp) != floor(valueOfExp)) {
+		//		std::cout << "Rezultat mora biti cijeli broj. :(" << std::endl;
+		//		std::cout << "Igrac B je osvojio rundu." << std::endl;
+		//		output << "Igrac A nije imao cjelobrojno resenje. Igrac B osvojio rundu." << std::endl;
+		//		roundsB++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
+		//	std::cout << " = " << ceil(valueOfExp) << std::endl;
+		//	output << "Vrednost izraza: " << valueOfExp << std::endl;
 
-			while (!isValidExpression(userExpr)) {
-				std::cout << "Igrac B na potezu: " << std::endl;
-				std::cin >> userExpr;
-			}
-			output << "Igrac B: " << userExpr << std::endl;
+		//	minDifA = abs(target - valueOfExp);
+		//	output << "Udaljenost: " << minDifA << std::endl << std::endl;
 
-			userExpr = infix_to_postfix(userExpr, numbers);
-			if (userExpr == "") {
-				std::cout << "Mozete koristiti samo ponudjene brojeve. :(" << std::endl;
-				std::cout << "Igrac A je osvojio rundu." << std::endl;
-				output << "Igrac B nije koristio samo ponudjene brojeve. Igrac A osvojio rundu." << std::endl;
-				roundsA++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
+		//	if (minDifA == 0) {
+		//		std::cout << "Igrac A je nasao tacan broj. \n" << std::endl;
+		//		output << "Igrac A je nasao tacan broj. Osvojio je rundu." << std::endl;
+		//		roundsA++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
+		//	/////////////////////////////////////////////////
+		//	userExpr = "";
 
-			valueOfExp = evaluateExpression<double>(userExpr);
-			if (ceil(valueOfExp) != floor(valueOfExp)) {
-				std::cout << "Rezultat mora biti cijeli broj. :(" << std::endl;
-				std::cout << "Igrac A je osvojio rundu." << std::endl;
-				output << "Igrac B nije imao cjelobrojno resenje. Igrac A osvojio rundu." << std::endl;
-				roundsA++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
-			std::cout << " = " << ceil(valueOfExp) << std::endl;
-			output << "Vrednost izraza: " << valueOfExp << std::endl;
+		//	while (!isValidExpression(userExpr)) {
+		//		std::cout << "Igrac B na potezu: " << std::endl;
+		//		std::cin >> userExpr;
+		//	}
+		//	output << "Igrac B: " << userExpr << std::endl;
 
-			minDifB = abs(target - valueOfExp);
-			output << "Udaljenost: " << minDifB << std::endl << std::endl;
+		//	userExpr = infix_to_postfix(userExpr, numbers);
+		//	if (userExpr == "") {
+		//		std::cout << "Mozete koristiti samo ponudjene brojeve. :(" << std::endl;
+		//		std::cout << "Igrac A je osvojio rundu." << std::endl;
+		//		output << "Igrac B nije koristio samo ponudjene brojeve. Igrac A osvojio rundu." << std::endl;
+		//		roundsA++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
 
-			if (minDifB == 0) {
-				std::cout << "Igrac B je nasao tacan broj. \n" << std::endl;
-				output << "Igrac B je nasao tacan broj. Osvojio je rundu." << std::endl;
-				roundsB++;
-				//racunar pronalazi svoje rjesenje
-				generator.generateExpr();
-				output << "Racunar: " << generator.printSolution() << std::endl;
-				continue;
-			}
-			else if (minDifB < minDifA) {
-				std::cout << "Igrac B je osvojio rundu." << std::endl;
-				output << "Igrac B je osvojio rundu." << std::endl;
-				roundsB++;
-			}
-			else {
-				std::cout << "Igrac A je osvojio rundu." << std::endl;
-				output << "Igrac A je osvojio rundu." << std::endl;
-				roundsA++;
-			}
+		//	valueOfExp = evaluateExpression<double>(userExpr);
+		//	if (ceil(valueOfExp) != floor(valueOfExp)) {
+		//		std::cout << "Rezultat mora biti cijeli broj. :(" << std::endl;
+		//		std::cout << "Igrac A je osvojio rundu." << std::endl;
+		//		output << "Igrac B nije imao cjelobrojno resenje. Igrac A osvojio rundu." << std::endl;
+		//		roundsA++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
+		//	std::cout << " = " << ceil(valueOfExp) << std::endl;
+		//	output << "Vrednost izraza: " << valueOfExp << std::endl;
 
-		}
+		//	minDifB = abs(target - valueOfExp);
+		//	output << "Udaljenost: " << minDifB << std::endl << std::endl;
+
+		//	if (minDifB == 0) {
+		//		std::cout << "Igrac B je nasao tacan broj. \n" << std::endl;
+		//		output << "Igrac B je nasao tacan broj. Osvojio je rundu." << std::endl;
+		//		roundsB++;
+		//		//racunar pronalazi svoje rjesenje
+		//		generator.generateExpr();
+		//		output << "Racunar: " << generator.printSolution() << std::endl;
+		//		continue;
+		//	}
+		//	else if (minDifB < minDifA) {
+		//		std::cout << "Igrac B je osvojio rundu." << std::endl;
+		//		output << "Igrac B je osvojio rundu." << std::endl;
+		//		roundsB++;
+		//	}
+		//	else {
+		//		std::cout << "Igrac A je osvojio rundu." << std::endl;
+		//		output << "Igrac A je osvojio rundu." << std::endl;
+		//		roundsA++;
+		//	}
+
+		//}
 
 
 		//racunar pronalazi svoje rjesenje
+		std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 		generator.generateExpr();
+		std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+		std::chrono::duration<double> duration = std::chrono::duration_cast<std::chrono::duration<double>>(end - start);
 		output << "Racunar: " << generator.printSolution() << std::endl;
+		std::cout << "Execution time: " << duration.count() << " seconds" << std::endl;
 
 	}
-	std::cout << "///////////////////////////KRAJ IGRE////////////////////////////////" << std::endl;
+	/*std::cout << "///////////////////////////KRAJ IGRE////////////////////////////////" << std::endl;
 	output << "///////////////////////////KRAJ IGRE////////////////////////////////" << std::endl;
 
 	std::cout << "Igrac A: " << roundsA << " runde" << std::endl;
@@ -443,7 +447,7 @@ void playGame()
 	else {
 		std::cout << "Nerjeseno." << std::endl;
 		output << "Nerjeseno." << std::endl;
-	}
+	}*/
 
 	output.close();
 }
